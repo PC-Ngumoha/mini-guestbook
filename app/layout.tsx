@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Navbar, Footer } from "@/components";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,13 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <main className="max-w-350 mx-auto py-4 px-6 w-full">
-          <Navbar />
-          {children}
-          <Footer />
-        </main>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

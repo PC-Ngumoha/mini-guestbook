@@ -3,6 +3,8 @@ import { LuActivity } from "react-icons/lu";
 import { PiBookOpen } from "react-icons/pi";
 import { CiStopwatch } from "react-icons/ci";
 import Image from "next/image";
+import { EntryType } from "@/lib/types";
+import Link from "next/link";
 
 export function NoEntry() {
   return (
@@ -24,12 +26,15 @@ export function NoEntry() {
           Our guestbook is currently a blank page. Whether it&apos;s a quick
           hello or a thoughtful note, we&apos;d love to hear from you.
         </p>
-        <button className="relative mt-8 inline-flex items-center gap-2 rounded-lg border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50">
+        <Link
+          href="/create"
+          className="relative mt-8 inline-flex items-center gap-2 rounded-lg border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
+        >
           <span className="flex h-4 w-4 items-center justify-center rounded-full border border-blue-500 text-xs leading-none">
             +
           </span>
           Write the First Note
-        </button>
+        </Link>
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4">
@@ -54,7 +59,7 @@ export function NoEntry() {
   );
 }
 
-export function CardList() {
+export function CardList(props: { entries: EntryType[] }) {
   return (
     <section className="w-[40%] mx-auto flex flex-col gap-4 mb-4">
       <header className="flex justify-between items-center py-3">
@@ -75,10 +80,10 @@ export function CardList() {
 
       {/* Cards */}
       <div className="flex flex-col gap-4">
-        {Array.from({ length: 5 }, () => 0).map((_, idx: number) => (
+        {props.entries.map((entry, idx: number) => (
           // Card
           <article
-            key={idx}
+            key={entry.id}
             className="p-4 bg-slate-50 border border-gray-100 rounded-xl shadow-sm shadow-gray-100"
           >
             <header className="flex items-center gap-4 mb-2">
@@ -90,7 +95,7 @@ export function CardList() {
               </div>
               <div className="flex flex-col px-2">
                 <h4 className="text-gray-600 font-bold tracking-tight text-sm">
-                  Albert Chika
+                  {entry.name}
                 </h4>
                 <div className="flex gap-2 items-center justify-center text-xs text-gray-500">
                   <CiStopwatch className="w-3 h-3" />
@@ -99,10 +104,7 @@ export function CardList() {
               </div>
             </header>
             <p className="p-2 text-sm [word-spacing:5px] tracking-wide text-gray-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-              adipisci corporis eligendi officiis. Accusantium amet deleniti
-              nesciunt, autem vero libero deserunt suscipit inventore quidem
-              quia quibusdam aspernatur repellendus iure? Ipsam.
+              {entry.message}
             </p>
           </article>
         ))}

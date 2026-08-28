@@ -1,11 +1,10 @@
-import Image from "next/image";
+import { Navbar, Footer } from "@/components";
 import { BsStars } from "react-icons/bs";
-import { CardList, CardListSkeleton } from "@/components";
 
-export default function Home() {
+export default function HomeLayout({ children }: LayoutProps<"/">) {
   return (
-    <main>
-      {/* Main heading */}
+    <main className="max-w-350 mx-auto py-4 px-6 w-full">
+      <Navbar />
       <header className="w-[40%] mx-auto text-center my-4 flex flex-col items-center gap-2">
         <div
           className="w-fit flex gap-2 justify-center items-center py-2 px-6 text-blue-700 bg-blue-100
@@ -22,13 +21,8 @@ export default function Home() {
           just say hi !
         </p>
       </header>
-
-      {/* Form Section */}
-
-      {/* Message list */}
-      <CardList />
-
-      {/* No entries */}
+      {children}
+      <Footer />
     </main>
   );
 }

@@ -3,7 +3,7 @@ import { LuSend } from "react-icons/lu";
 
 export default function CreatePage() {
   return (
-    <section className="w-[40%] mx-auto flex flex-col gap-2 mb-4">
+    <main className="h-[80vh] w-[60%] mx-auto flex flex-col justify-center gap-2 mb-4">
       <header className="flex gap-2 items-center">
         <MdOutlineChat className="h-5 w-5 text-blue-700" />
         <span className="font-bold text-sm text-gray-600 tracking-wide">
@@ -20,7 +20,7 @@ export default function CreatePage() {
         <div className="w-full flex flex-col">
           <label
             htmlFor="name"
-            className="text-sm font-bold tracking-wide text-gray-500 mb-2"
+            className="text-sm font-bold tracking-wide tex  t-gray-500 mb-2"
           >
             Name
           </label>
@@ -59,6 +59,6 @@ export default function CreatePage() {
           <span>Post Message</span>
         </button>
       </form>
-    </section>
+    </main>
   );
 }
