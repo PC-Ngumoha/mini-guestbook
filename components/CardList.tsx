@@ -1,7 +1,6 @@
 import { BsChatLeft } from "react-icons/bs";
-import { LuActivity } from "react-icons/lu";
 import { PiBookOpen } from "react-icons/pi";
-import { CiStopwatch } from "react-icons/ci";
+import { Card, CardSkeleton } from "./Card";
 import Image from "next/image";
 import { EntryType } from "@/lib/types";
 import Link from "next/link";
@@ -59,101 +58,53 @@ export function NoEntry() {
   );
 }
 
-export function CardList(props: { entries: EntryType[] }) {
+export function CardList(props: {
+  initialEntries: EntryType[];
+  initialHasMore: boolean;
+}) {
   return (
-    <section className="w-[40%] mx-auto flex flex-col gap-4 mb-4">
-      <header className="flex justify-between items-center py-3">
-        <div className="flex gap-2 items-center">
-          <LuActivity className="h-5 w-5 text-blue-700" />
-          <span className="font-bold text-sm text-gray-600 tracking-wide">
-            Recent Messages
-          </span>
-        </div>
-        <div
-          className="flex gap-2 items-center text-xs bg-gray-50 text-gray-500
-            p-2 rounded-2xl"
-        >
-          <PiBookOpen className="h-3 w-3" />
-          <span>5 entries</span>
-        </div>
-      </header>
-
-      {/* Cards */}
+    // {/* Cards */}
+    <>
       <div className="flex flex-col gap-4">
-        {props.entries.map((entry, idx: number) => (
+        {props.initialEntries.map((entry) => (
           // Card
-          <article
-            key={entry.id}
-            className="p-4 bg-slate-50 border border-gray-100 rounded-xl shadow-sm shadow-gray-100"
-          >
-            <header className="flex items-center gap-4 mb-2">
-              <div
-                className="p-2 bg-gray-100 rounded-full flex items-center justify-center
-                  text-gray-500"
-              >
-                <BsChatLeft className="w-4 h-4" />
-              </div>
-              <div className="flex flex-col px-2">
-                <h4 className="text-gray-600 font-bold tracking-tight text-sm">
-                  {entry.name}
-                </h4>
-                <div className="flex gap-2 items-center justify-center text-xs text-gray-500">
-                  <CiStopwatch className="w-3 h-3" />
-                  <span>5 minutes ago</span>
-                </div>
-              </div>
-            </header>
-            <p className="p-2 text-sm [word-spacing:5px] tracking-wide text-gray-600">
-              {entry.message}
-            </p>
-          </article>
+          <Card key={entry.id} entry={entry} />
         ))}
       </div>
       <button
-        className="w-[40%] mx-auto py-3 px-6 border border-gray-100 rounded-lg shadow-sm
+        className="w-1/2 mx-auto py-3 px-6 border border-gray-100 rounded-lg shadow-sm
           shadow-gray-100 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors
           duration-200 ease-in"
       >
         View Older Messages
       </button>
-    </section>
+    </>
   );
 }
 
-export function CardListSkeleton() {
+export function CardListSkeleton(props: { length: number }) {
   return (
-    <section className="w-[40%] mx-auto flex flex-col gap-4 mb-4">
-      <header className="flex justify-between items-center py-3">
-        <div className="flex gap-2 items-center">
-          <div className="h-5 w-5 bg-gray-200 rounded animate-pulse" />
-          <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
-        </div>
-        <div className="h-6 w-24 bg-gray-200 rounded-2xl animate-pulse" />
-      </header>
-
-      {/* Cards */}
-      <div className="flex flex-col gap-4">
-        {Array.from({ length: 5 }, () => 0).map((_, idx: number) => (
-          // Card
-          <article
-            key={idx}
-            className="p-4 bg-slate-50 border border-gray-100 rounded-xl shadow-sm shadow-gray-100"
-          >
-            <header className="flex items-center gap-4 mb-2">
-              <div className="h-10 w-10 bg-gray-200 rounded-full animate-pulse" />
-              <div className="flex flex-col flex-1 gap-2">
-                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
-                <div className="h-3 w-20 bg-gray-200 rounded animate-pulse" />
-              </div>
-            </header>
-            <div className="space-y-2">
-              <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
-              <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
-              <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse" />
+    <div className="flex flex-col gap-4">
+      {Array.from({ length: props.length }, () => 0).map((_, idx: number) => (
+        // Card
+        <article
+          key={idx}
+          className="p-4 bg-slate-50 border border-gray-100 rounded-xl shadow-sm shadow-gray-100"
+        >
+          <header className="flex items-center gap-4 mb-2">
+            <div className="h-10 w-10 bg-gray-200 rounded-full animate-pulse" />
+            <div className="flex flex-col flex-1 gap-2">
+              <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+              <div className="h-3 w-20 bg-gray-200 rounded animate-pulse" />
             </div>
-          </article>
-        ))}
-      </div>
-    </section>
+          </header>
+          <div className="space-y-2">
+            <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+            <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+            <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse" />
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }
