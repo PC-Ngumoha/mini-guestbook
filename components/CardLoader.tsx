@@ -24,7 +24,11 @@ export async function CardLoader() {
         </div>
       </header>
       {entries.length > 0 ? (
-        <CardList initialEntries={entries} initialHasMore={hasMore} />
+        <CardList
+          initialEntries={entries}
+          initialHasMore={hasMore}
+          initialPage={0}
+        />
       ) : (
         <NoEntry />
       )}

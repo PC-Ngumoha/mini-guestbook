@@ -1,9 +1,13 @@
+"use client";
 import { BsChatLeft } from "react-icons/bs";
 import { PiBookOpen } from "react-icons/pi";
 import { Card, CardSkeleton } from "./Card";
 import Image from "next/image";
 import { EntryType } from "@/lib/types";
 import Link from "next/link";
+import { useState, useTransition } from "react";
+import { loadMoreEntries } from "@/app/actions";
+import { initialize } from "next/dist/server/lib/render-server";
 
 export function NoEntry() {
   return (
@@ -61,23 +65,45 @@ export function NoEntry() {
 export function CardList(props: {
   initialEntries: EntryType[];
   initialHasMore: boolean;
+  initialPage: number;
 }) {
+  const [entries, setEntries] = useState(props.initialEntries);
+  const [hasMore, setHasMore] = useState(props.initialHasMore);
+  const [currentPage, setCurrentPage] = useState(props.initialPage);
+  const [isPending, startTransition] = useTransition();
+
+  function handleLoadMore() {
+    startTransition(async () => {
+      setCurrentPage((page) => page + 1); // move to next page;
+      const { data: newEntries, hasMore } = await loadMoreEntries({
+        currentPage,
+      });
+      setEntries((previousEntries) => [...previousEntries, ...newEntries]);
+      setHasMore(hasMore);
+    });
+  }
+
   return (
     // {/* Cards */}
     <>
       <div className="flex flex-col gap-4">
-        {props.initialEntries.map((entry) => (
+        {entries.map((entry) => (
           // Card
           <Card key={entry.id} entry={entry} />
         ))}
+        {isPending && <CardListSkeleton length={5} />}
       </div>
-      <button
-        className="w-1/2 mx-auto py-3 px-6 border border-gray-100 rounded-lg shadow-sm
+      {hasMore && (
+        <button
+          className="w-1/2 mx-auto py-3 px-6 border border-gray-100 rounded-lg shadow-sm
           shadow-gray-100 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors
           duration-200 ease-in"
-      >
-        View Older Messages
-      </button>
+          onClick={handleLoadMore}
+          disabled={isPending}
+        >
+          {isPending ? "Loading ..." : "Load More Messages"}
+        </button>
+      )}
     </>
   );
 }

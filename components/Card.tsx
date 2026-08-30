@@ -16,11 +16,12 @@ export function Card(props: { entry: EntryType }) {
           <BsChatLeft className="w-4 h-4" />
         </div>
         <div className="flex flex-col px-2">
-          <h4 className="text-gray-600 font-bold tracking-tight text-sm">
+          <h4 className="text-gray-600 font-bold tracking-tight text-sm text-start">
             {props.entry.name}
           </h4>
           <div className="flex gap-2 items-center justify-center text-xs text-gray-500">
             <CiStopwatch className="w-3 h-3" />
+            {/* TODO: Make this actually work */}
             <span>5 minutes ago</span>
           </div>
         </div>
