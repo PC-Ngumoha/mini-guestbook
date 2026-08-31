@@ -1,6 +1,7 @@
 "use client";
 import { BsChatLeft } from "react-icons/bs";
 import { PiBookOpen } from "react-icons/pi";
+import { LuActivity } from "react-icons/lu";
 import { Card, CardSkeleton } from "./Card";
 import Image from "next/image";
 import { EntryType } from "@/lib/types";
@@ -85,6 +86,21 @@ export function CardList(props: {
   return (
     // {/* Cards */}
     <>
+      <header className="flex justify-between items-center py-3">
+        <div className="flex gap-2 items-center">
+          <LuActivity className="h-5 w-5 text-blue-700" />
+          <span className="font-bold text-sm text-gray-600 tracking-wide">
+            Recent Messages
+          </span>
+        </div>
+        <div
+          className="flex gap-2 items-center text-xs bg-gray-50 text-gray-500
+                p-2 rounded-2xl"
+        >
+          <PiBookOpen className="h-3 w-3" />
+          <span>{entries.length} entries</span>
+        </div>
+      </header>
       <div className="flex flex-col gap-4">
         {entries.map((entry) => (
           // Card

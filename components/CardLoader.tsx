@@ -1,6 +1,6 @@
 import { fetchEntries } from "@/lib/helpers";
-import { LuActivity } from "react-icons/lu";
-import { PiBookOpen } from "react-icons/pi";
+
+// import { PiBookOpen } from "react-icons/pi";
 import { CardList, NoEntry, CardListSkeleton } from "./CardList";
 
 export async function CardLoader() {
@@ -8,21 +8,6 @@ export async function CardLoader() {
 
   return (
     <section className="w-[40%] mx-auto flex flex-col gap-4 mb-4">
-      <header className="flex justify-between items-center py-3">
-        <div className="flex gap-2 items-center">
-          <LuActivity className="h-5 w-5 text-blue-700" />
-          <span className="font-bold text-sm text-gray-600 tracking-wide">
-            Recent Messages
-          </span>
-        </div>
-        <div
-          className="flex gap-2 items-center text-xs bg-gray-50 text-gray-500
-                p-2 rounded-2xl"
-        >
-          <PiBookOpen className="h-3 w-3" />
-          <span>5 entries</span>
-        </div>
-      </header>
       {entries.length > 0 ? (
         <CardList
           initialEntries={entries}
