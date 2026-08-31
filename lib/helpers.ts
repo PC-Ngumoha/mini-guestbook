@@ -1,13 +1,8 @@
 import postgres from "postgres";
-import { EntryType } from "./types";
+import { EntryType, ResultType } from "./types";
 
 const DB_URL = process.env.POSTGRES_URL!;
 const sql = postgres(DB_URL);
-
-type ResultType = {
-  data: EntryType[];
-  hasMore: boolean;
-};
 
 export async function fetchEntries(options: {
   limit: number;

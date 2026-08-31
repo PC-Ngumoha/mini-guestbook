@@ -1,5 +1,6 @@
 import { MdOutlineChat } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
+import { createNewEntry } from "../actions";
 
 export default function CreatePage() {
   return (
@@ -13,6 +14,7 @@ export default function CreatePage() {
       <form
         className="w-full bg-slate-50 border border-gray-100 shadow shadow-gray-100 py-8 px-4
         flex flex-col gap-6 rounded-2xl"
+        action={createNewEntry}
       >
         <legend className="font-bold text-gray-700/90 tracking-tight">
           Leave a Message

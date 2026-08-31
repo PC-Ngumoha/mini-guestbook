@@ -4,3 +4,8 @@ export type EntryType = {
   message: string;
   created_at: Date | string;
 };
+
+export type ResultType = {
+  data: EntryType[];
+  hasMore: boolean;
+};
