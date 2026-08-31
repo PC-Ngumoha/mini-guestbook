@@ -7,7 +7,6 @@ import { EntryType } from "@/lib/types";
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { loadMoreEntries } from "@/app/actions";
-import { initialize } from "next/dist/server/lib/render-server";
 
 export function NoEntry() {
   return (

@@ -22,6 +22,7 @@ export async function fetchEntries(options: {
       >`SELECT * FROM entries LIMIT ${options.limit} OFFSET ${options.page * options.limit}`,
       sql`SELECT COUNT(*) FROM entries`,
     ]);
+    console.log(typeof data[0].created_at.toString());
     const remaining =
       parseInt(countResult[0].count) - options.page * options.limit;
     const hasMore = remaining > 0;

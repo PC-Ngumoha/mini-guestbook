@@ -1,8 +1,11 @@
+import { howLongAgo } from "@/lib/utils";
 import { EntryType } from "@/lib/types";
 import { BsChatLeft } from "react-icons/bs";
 import { CiStopwatch } from "react-icons/ci";
 
 export function Card(props: { entry: EntryType }) {
+  const lastSeen = howLongAgo(props.entry.created_at.toString());
+
   return (
     <article
       key={props.entry.id}
@@ -15,14 +18,13 @@ export function Card(props: { entry: EntryType }) {
         >
           <BsChatLeft className="w-4 h-4" />
         </div>
-        <div className="flex flex-col px-2">
+        <div className="flex-1 flex flex-col px-2 justify-start text-start">
           <h4 className="text-gray-600 font-bold tracking-tight text-sm text-start">
             {props.entry.name}
           </h4>
-          <div className="flex gap-2 items-center justify-center text-xs text-gray-500">
+          <div className="flex gap-2 items-center text-xs text-gray-500">
             <CiStopwatch className="w-3 h-3" />
-            {/* TODO: Make this actually work */}
-            <span>5 minutes ago</span>
+            <span>{lastSeen}</span>
           </div>
         </div>
       </header>
