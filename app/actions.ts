@@ -1,6 +1,9 @@
 "use server";
+import { sql } from "@/config/postgres";
 import { fetchEntries } from "@/lib/helpers";
 import { ResultType } from "@/lib/types";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function loadMoreEntries(options: {
   currentPage: number;
@@ -9,6 +12,22 @@ export async function loadMoreEntries(options: {
 }
 
 export async function createNewEntry(formData: FormData) {
-  console.log("Name: ", formData.get("name"));
-  console.log("Message: ", formData.get("message"));
+  // console.log("Name: ", formData.get("name"));
+  // console.log("Message: ", formData.get("message"));
+
+  const name = formData.get("name") as string;
+  const message = formData.get("message") as string;
+
+  try {
+    await sql`INSERT INTO entries (name, message)
+      VALUES (${name}, ${message})`;
+
+    console.log("Created new entry successfully !!!");
+  } catch (error) {
+    console.error("Failed to create new entry.");
+    throw new Error("Failed to create new entry");
+  }
+
+  revalidatePath("/");
+  redirect("/");
 }
