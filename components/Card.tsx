@@ -4,7 +4,7 @@ import { BsChatLeft } from "react-icons/bs";
 import { CiStopwatch } from "react-icons/ci";
 
 export function Card(props: { entry: EntryType }) {
-  console.log(props.entry.name);
+  // console.log(props.entry.name);
   const lastSeen = howLongAgo(props.entry.created_at);
 
   return (
