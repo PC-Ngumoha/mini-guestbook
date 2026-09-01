@@ -2,7 +2,7 @@
 import { BsChatLeft } from "react-icons/bs";
 import { PiBookOpen } from "react-icons/pi";
 import { LuActivity } from "react-icons/lu";
-import { Card, CardSkeleton } from "./Card";
+import { Card } from "./Card";
 import Image from "next/image";
 import { EntryType } from "@/lib/types";
 import Link from "next/link";
@@ -72,6 +72,10 @@ export function CardList(props: {
   const [currentPage, setCurrentPage] = useState(props.initialPage);
   const [isPending, startTransition] = useTransition();
 
+  function handleDeleteEntries(id: string) {
+    setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+  }
+
   function handleLoadMore() {
     startTransition(async () => {
       setCurrentPage((page) => page + 1); // move to next page;
@@ -104,7 +108,7 @@ export function CardList(props: {
       <div className="flex flex-col gap-4">
         {entries.map((entry) => (
           // Card
-          <Card key={entry.id} entry={entry} />
+          <Card key={entry.id} entry={entry} onDelete={handleDeleteEntries} />
         ))}
         {isPending && <CardListSkeleton length={5} />}
       </div>

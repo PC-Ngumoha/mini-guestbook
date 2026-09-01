@@ -25,7 +25,20 @@ export async function createNewEntry(formData: FormData) {
     console.log("Created new entry successfully !!!");
   } catch (error) {
     console.error("Failed to create new entry.");
-    throw new Error("Failed to create new entry");
+    throw new Error("Failed to create new entry.");
+  }
+
+  revalidatePath("/");
+  redirect("/");
+}
+
+export async function deleteExistingEntry(id: string) {
+  try {
+    await sql`DELETE FROM entries
+    WHERE id = ${id}`;
+  } catch (error) {
+    console.error("Failed to delete entry.");
+    throw new Error("Failed to delete entry.");
   }
 
   revalidatePath("/");

@@ -2,10 +2,27 @@ import { howLongAgo } from "@/lib/utils";
 import { EntryType } from "@/lib/types";
 import { BsChatLeft } from "react-icons/bs";
 import { CiStopwatch } from "react-icons/ci";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { deleteExistingEntry } from "@/app/actions";
 
-export function Card(props: { entry: EntryType }) {
-  // console.log(props.entry.name);
+export function Card(props: {
+  entry: EntryType;
+  onDelete: (id: string) => void;
+}) {
   const lastSeen = howLongAgo(props.entry.created_at);
+
+  //FIXME: This is prone to bugs in situations where
+  // deletion fails due to an external issue. But we'll
+  // leave it for now.
+  async function handleDeleteClick() {
+    props.onDelete(props.entry.id);
+
+    try {
+      await deleteExistingEntry(props.entry.id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <article
@@ -28,6 +45,14 @@ export function Card(props: { entry: EntryType }) {
             <span>{lastSeen}</span>
           </div>
         </div>
+        <button
+          type="button"
+          aria-label={`Delete message from ${props.entry.name}`}
+          className="ml-auto p-1.5 rounded-full text-gray-400 opacity-60 transition-colors duration-200 hover:opacity-100 hover:bg-red-50 hover:text-red-500"
+          onClick={handleDeleteClick}
+        >
+          <MdOutlineDeleteOutline className="w-4 h-4" />
+        </button>
       </header>
       <p className="p-2 text-sm [word-spacing:5px] tracking-wide text-gray-600">
         {props.entry.message}

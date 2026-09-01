@@ -5,10 +5,6 @@ export function howLongAgo(date: Date | string): string {
   const SECONDS_IN_HOUR = 3_600;
   const SECONDS_IN_MINUTE = 60;
 
-  // console.log(
-  //   date instanceof Date ? date.toISOString() : "Nothing to see here",
-  // );
-
   const targetDate =
     date instanceof Date
       ? new Date(date.toISOString()).getTime()
