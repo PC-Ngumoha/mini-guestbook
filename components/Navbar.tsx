@@ -17,7 +17,7 @@ export function Navbar() {
       </div>
       <div className="flex-1 flex justify-center items-center">
         <Link
-          href="#"
+          href="/create"
           className=" text-gray-600/75 font-light tracking-wide text-sm"
         >
           Leave a note
