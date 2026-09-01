@@ -1,6 +1,4 @@
 import { fetchEntries } from "@/lib/helpers";
-
-// import { PiBookOpen } from "react-icons/pi";
 import { CardList, NoEntry, CardListSkeleton } from "./CardList";
 
 export async function CardLoader() {

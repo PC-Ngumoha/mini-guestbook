@@ -22,11 +22,9 @@ export function howLongAgo(date: Date | string): string {
   if (interval >= 1) return `${interval} day${interval > 1 ? "s" : ""} ago.`;
 
   interval = Math.floor(seconds / SECONDS_IN_HOUR);
-  // console.log("Interval: ", interval);
   if (interval >= 1) return `${interval} hour${interval > 1 ? "s" : ""} ago.`;
 
   interval = Math.floor(seconds / SECONDS_IN_MINUTE);
-  // console.log("Seconds: ", seconds, ", Interval: ", interval);
   if (interval >= 1) return `${interval} minute${interval > 1 ? "s" : ""} ago.`;
 
   return "Just now.";

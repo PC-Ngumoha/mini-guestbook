@@ -12,9 +12,6 @@ export async function loadMoreEntries(options: {
 }
 
 export async function createNewEntry(formData: FormData) {
-  // console.log("Name: ", formData.get("name"));
-  // console.log("Message: ", formData.get("message"));
-
   const name = formData.get("name") as string;
   const message = formData.get("message") as string;
 
